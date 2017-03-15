@@ -8,8 +8,10 @@ import java.util.ArrayList;
 public class Plateau {
 
     private ArrayList<Integer> damier;
+    private int dimension;
 
     public Plateau(int n) {
+        this.dimension = n;
         for (int i=0;i<n;i++)
             this.damier.add(0);
     }
@@ -31,6 +33,11 @@ public class Plateau {
     }
 
     public int getSize(){
-        return this.damier.size();
+        return this.dimension;
+    }
+
+    public void remplir(){
+        for (int i=0; i<dimension; i++)
+            setCaseById(i, (int) Math.random() * dimension );
     }
 }
