@@ -1,5 +1,7 @@
 package Model1;
 
+import java.util.ArrayList;
+
 /**
  * Created by Loick on 15/03/2017.
  */
@@ -22,5 +24,9 @@ public class Evaluation {
         }
 
         return valeur;
+    }
+
+    public static Solution meilleureSolution(ArrayList<Solution> voisins) {
+        return voisins.get(0);
     }
 }
