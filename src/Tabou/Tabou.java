@@ -10,12 +10,13 @@ import java.util.ArrayList;
 public class Tabou {
 
     static void main(){
-        Plateau monPlateau = new Plateau(8);
-        monPlateau.remplir();
+        Solution monSolution = new Solution(8);
+        monSolution.remplir();
 
-        ArrayList<Plateau> voisinnage = monPlateau;
+        ArrayList<Solution> voisinnage = monSolution;
 
 
     }
+
 
 }

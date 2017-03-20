@@ -5,20 +5,20 @@ import java.util.ArrayList;
 /**
  * Created by Loick on 15/03/2017.
  */
-public class Plateau {
+public class Solution {
 
     private ArrayList<Integer> damier;
     private int dimension;
 
-    public Plateau(int n) {
+    public Solution(int n) {
         this.dimension = n;
         this.damier = new ArrayList<>();
 
         for (int i=0;i<n;i++)
-            this.damier.add(0);
+            this.damier.add(i);
     }
 
-    public Plateau(Plateau p){
+    public Solution(Solution p){
         this.dimension = p.getSize();
         this.damier = new ArrayList<>();
 
