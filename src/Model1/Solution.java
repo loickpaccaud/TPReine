@@ -12,8 +12,19 @@ public class Plateau {
 
     public Plateau(int n) {
         this.dimension = n;
+        this.damier = new ArrayList<>();
+
         for (int i=0;i<n;i++)
             this.damier.add(0);
+    }
+
+    public Plateau(Plateau p){
+        this.dimension = p.getSize();
+        this.damier = new ArrayList<>();
+
+        for(int i = 0; i< this.dimension; i++){
+            this.damier.add(p.getCaseById(i));
+        }
     }
 
     public ArrayList<Integer> getDamier() {
@@ -40,4 +51,5 @@ public class Plateau {
         for (int i=0; i<dimension; i++)
             setCaseById(i, (int) Math.random() * dimension );
     }
+
 }
