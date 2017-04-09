@@ -6,50 +6,54 @@ import Model1.*;
  * Created by Loick on 15/03/2017.
  */
 public class Recuit {
+    private Solution xmin;
+    private int fmin;
 
-    public Solution main(){
-        Solution soli = new Solution(8);
-        int fi = Evaluation.evalutaionSimple(soli);
-        Solution xmin = soli;
-        int fmin = fi;
+    public Recuit(int taille) {
+        xmin = new Solution(taille);
+        fmin = Evaluation.evalutaionSimple(this.xmin);
+    }
 
-        //TODO delta
-        int delta = Evaluation.evalutaionSimple(soli);
+    public Solution search(){
+        Solution xi = xmin;
+        Solution y;
 
-        double p0 = 4/5;
-        double ti = -delta/Math.log(p0);
+        int delta = Evaluation.genererDelta(xi.getSize(),10);
+
+        double p = 0.8;
+        double t = -(delta/Math.log(p));
         double µ = 0.99;
 
-        int n1 = (int)((Math.log(-delta/(ti*Math.log(p0))))/Math.log(µ));
-        int n2 = n1*n1;
-            for(int k=0;k<n1;k++){
-                for(int l=0;l<n2;l++){
+        int n1 = (int)((Math.log(-delta/(t*Math.log(0.01))))/Math.log(µ));
+        int n2 = n1;
 
-                    Solution y = Voisin.switchCol(soli).get((int)(Math.random() * Voisin.switchCol(soli).size()));
-                    delta = Evaluation.evalutaionSimple(y)-Evaluation.evalutaionSimple(soli);
+        for(int k=0;k<n1;k++){
+            for(int l=0;l<n2;l++){
+
+                y = Voisin.switchCol(xi).get((int)(Math.random() * Voisin.switchCol(xi).size()));
+                delta = Evaluation.evalutaionSimple(y)-Evaluation.evalutaionSimple(xi);
 
                 if(delta <= 0){
-                    soli = y;
-                    if(Evaluation.evalutaionSimple(soli)<fmin) {
-                        fmin = Evaluation.evalutaionSimple(soli);
-                        xmin = soli;
+                    xi = y;
+                    if(Evaluation.evalutaionSimple(xi)<fmin) {
+                        fmin = Evaluation.evalutaionSimple(xi);
+                        xmin = xi;
                     }
                 }else{
-                    double p = Math.random();
-                    if(p <= Math.exp((-delta)/ti))
-                        soli = y;
+                    p = Math.random();
+                    if(p <= Math.exp((-delta)/t))
+                        xi = y;
                 }
 
-                System.out.println(fmin);
-                if(fmin == 0)
+                if(fmin == 0) {
+                    System.out.println("Nb d'itération : "+Integer.toString((k+1)*(l+1)));
                     return xmin;
-
+                }
             }
-            ti = µ*ti;
+            t = µ*t;
         }
-
+        System.out.println("Nb d'itération : "+Integer.toString(n1*n2));
         return xmin;
-
     }
 
 

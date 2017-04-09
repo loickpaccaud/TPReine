@@ -15,7 +15,7 @@ public class Tabou {
     private Solution solMin;
     private int evalMin;
 
-    public Tabou(int sizeTabou, int sizeDamier{
+    public Tabou(int sizeTabou, int sizeDamier){
 
         this.sizeDamier = sizeDamier;
 
@@ -62,7 +62,7 @@ public class Tabou {
     public ArrayList<Solution> trouverVoisin(Solution sol){
         ArrayList<Solution> voisin =  Voisin.switchCol(sol);
 
-        return null;
+        return voisin;
     }
 
 }

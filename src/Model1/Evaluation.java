@@ -2,6 +2,8 @@ package Model1;
 
 import java.util.ArrayList;
 
+import static java.lang.Math.abs;
+
 /**
  * Created by Loick on 15/03/2017.
  */
@@ -17,7 +19,7 @@ public class Evaluation {
                     valeur += 1;
 
                 //digonales
-                if(solution.getCaseById(i) - solution.getCaseById(j) == i-j)
+                if(abs(solution.getCaseById(i) - solution.getCaseById(j)) == abs(i-j))
                     valeur += 1;
 
             }
@@ -27,6 +29,27 @@ public class Evaluation {
     }
 
     public static Solution meilleureSolution(ArrayList<Solution> voisins) {
-        return voisins.get(0);
+        Solution bestSolution = voisins.get(0);
+        int bestEval = Evaluation.evalutaionSimple(bestSolution);
+        int eval;
+        for(Solution voisin : voisins){
+            eval = Evaluation.evalutaionSimple(voisin);
+            if(eval < bestEval){
+                bestEval = eval;
+                bestSolution = voisin;
+            }
+        }
+        return bestSolution;
+    }
+
+    public static int genererDelta(int taille,int iteration){
+        int moyenne =0;
+        Solution solution = new Solution(taille);
+        for(int k=0; k<iteration; k++){
+            solution.melanger();
+            moyenne += Evaluation.evalutaionSimple(solution);
+        }
+        moyenne /= iteration;
+        return moyenne;
     }
 }

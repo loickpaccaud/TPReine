@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class Voisin {
 
-    public static  ArrayList<Solution> switchCol(Solution sol){
+    public static ArrayList<Solution> switchCol(Solution sol){
         Solution temp;
         ArrayList<Solution> list = new ArrayList<>();
 
@@ -17,9 +17,9 @@ public class Voisin {
                 int t = temp.getCaseById(j);
                 temp.setCaseById(j, temp.getCaseById(i));
                 temp.setCaseById(i, t);
+                list.add(temp);
             }
         }
-
         return list;
     }
 }
