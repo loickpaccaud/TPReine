@@ -7,7 +7,7 @@ import Tabou.Tabou;
 public class main {
 
     public static void main(String[] args){
-       Recuit recuit = new Recuit(8);
+       Recuit recuit = new Recuit(50);
        recuit.search().afficher();
 
        //Tabou tabou = new Tabou(2,8);

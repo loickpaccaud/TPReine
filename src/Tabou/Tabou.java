@@ -60,7 +60,7 @@ public class Tabou {
     }
 
     public ArrayList<Solution> trouverVoisin(Solution sol){
-        ArrayList<Solution> voisin =  Voisin.switchCol(sol);
+        ArrayList<Solution> voisin =  Voisin.listVoisins(sol);
 
         return voisin;
     }

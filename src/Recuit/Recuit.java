@@ -18,19 +18,24 @@ public class Recuit {
         Solution xi = xmin;
         Solution y;
 
-        int delta = Evaluation.genererDelta(xi.getSize(),10);
+        int delta = xi.getSize()/2;
+        //int delta = Evaluation.genererDelta(xi.getSize(),50);
 
-        double p = 0.8;
-        double t = -(delta/Math.log(p));
-        double µ = 0.99;
+        double p = 0.9;
+        //double t = -(delta/Math.log(p));
+        double t = xi.getSize()*10;
+        double u = 0.9;
 
-        int n1 = (int)((Math.log(-delta/(t*Math.log(0.01))))/Math.log(µ));
-        int n2 = n1;
+        //int n1 = (int)((Math.log(-delta/(t*Math.log(0.01))))/Math.log(u));
+        //System.out.println(n1);
+        int n1 = xi.getSize()*2;
+        int n2 = n1*10;
 
         for(int k=0;k<n1;k++){
             for(int l=0;l<n2;l++){
 
-                y = Voisin.switchCol(xi).get((int)(Math.random() * Voisin.switchCol(xi).size()));
+                y = Voisin.switchCol(xi);
+                //y = Voisin.listVoisins(xi).get((int)(Math.random() * Voisin.listVoisins(xi).size()));
                 delta = Evaluation.evalutaionSimple(y)-Evaluation.evalutaionSimple(xi);
 
                 if(delta <= 0){
@@ -46,13 +51,14 @@ public class Recuit {
                 }
 
                 if(fmin == 0) {
-                    System.out.println("Nb d'itération : "+Integer.toString((k+1)*(l+1)));
+                    System.out.println("Nb d'itération n1 : "+Integer.toString(k+1));
+                    System.out.println("Nb d'itération n1 * n2 : "+Integer.toString((k+1)*(l+1)));
                     return xmin;
                 }
             }
-            t = µ*t;
+            t *= u;
         }
-        System.out.println("Nb d'itération : "+Integer.toString(n1*n2));
+        System.out.println("Nb d'itération n1 * n2 : "+Integer.toString(n1*n2));
         return xmin;
     }
 

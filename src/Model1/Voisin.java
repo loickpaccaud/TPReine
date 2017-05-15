@@ -7,7 +7,20 @@ import java.util.ArrayList;
  */
 public class Voisin {
 
-    public static ArrayList<Solution> switchCol(Solution sol){
+    public static Solution switchCol(Solution sol){
+        int temp;
+
+        int i = (int) (Math.random()*sol.getSize());
+        int j = (int) (Math.random()*sol.getSize());
+
+        temp = sol.getCaseById(i);
+        sol.setCaseById(i,sol.getCaseById(j));
+        sol.setCaseById(j,temp);
+
+        return sol;
+    }
+
+    public static ArrayList<Solution> listVoisins(Solution sol){
         Solution temp;
         ArrayList<Solution> list = new ArrayList<>();
 
