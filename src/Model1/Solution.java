@@ -65,7 +65,7 @@ public class Solution {
     }
 
     public void afficher(){
-        System.out.println(Arrays.toString(damier.stream().mapToInt(sol -> sol).toArray()));
+        System.out.println("Solution : "+Arrays.toString(damier.stream().mapToInt(sol -> sol).toArray()));
         int conflit = Evaluation.evalutaionSimple(this);
         if(conflit!=0)
             System.out.println("Nombre de conflits : "+conflit);

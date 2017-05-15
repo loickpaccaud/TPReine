@@ -8,16 +8,15 @@ import java.util.ArrayList;
 public class Voisin {
 
     public static Solution switchCol(Solution sol){
-        int temp;
-
+        Solution solution = new Solution(sol);
         int i = (int) (Math.random()*sol.getSize());
         int j = (int) (Math.random()*sol.getSize());
 
-        temp = sol.getCaseById(i);
-        sol.setCaseById(i,sol.getCaseById(j));
-        sol.setCaseById(j,temp);
+        int temp = solution.getCaseById(j);
 
-        return sol;
+        solution.setCaseById(j, solution.getCaseById(i));
+        solution.setCaseById(i, temp);
+        return solution;
     }
 
     public static ArrayList<Solution> listVoisins(Solution sol){
