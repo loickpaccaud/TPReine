@@ -130,10 +130,9 @@ public class SolutionSimple extends Solution{
         SolutionSimple enfant2 = (SolutionSimple) parent;
 
         Random rand = new Random();
-        int cesure1 = rand.nextInt(this.dimensionDamier-1);
-        int cesure2 = cesure1 + rand.nextInt(this.dimensionDamier - cesure1);
+        int cesure1 = rand.nextInt((this.dimensionDamier-1)/2);
 
-        for(int i = cesure1 ; i < cesure2 ; i++){
+        for(int i = 0 ; i < cesure1 ; i++){
             enfant1.setCaseById(i, enfant2.getCaseById(i));
             enfant2.setCaseById(i, this.getCaseById(i));
         }

@@ -5,13 +5,13 @@ import modele.Solution;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class Genetique extends ISearchAlgo{
 
     private Solution bestSolution;
     private int bestEvaluation;
+    private int bestIteration;
     private boolean bestFinded;
     private int bestScore;
 
@@ -61,8 +61,7 @@ public class Genetique extends ISearchAlgo{
 
     @Override
     public void search() {
-        Integer[] random = new Integer[4];
-        Solution[] selection = new Solution[4];
+        Integer[] random = new Integer[2];
         Solution[] couple = new Solution[2];
 
         HashMap<Solution, Integer> nextSolutionScore;
@@ -79,28 +78,19 @@ public class Genetique extends ISearchAlgo{
             // ajouter élements 2 par 2
             while(!bestFinded  && nextGeneration.size() < tailleGeneration){
 
-                roll(random);
+                // Selectioner 2 solutions
+                random[0] = rand.nextInt(this.totalScorePresent);
+                random[1] = rand.nextInt(this.totalScorePresent);
 
-                // Selectioner 4 solutions
-                for(int i= 0 ; i < 4 ; i++){
+                for(int i= 0 ; i < 2 ; i++){
                     for(Solution individu : presentGeneration){
                         random[i] -= solutionScore.get(individu);
                         if(random[i] <= 0){
-                            selection[i] = individu;
+                            couple[i] = individu;
                             break;
                         }
                     }
                 }
-
-                // choisir la meilleure des deux première et la meilleure des deux suivantes
-                if(solutionScore.get(selection[0]) > solutionScore.get(selection[1]))
-                    couple[0] = selection[1];
-                else
-                    couple[0] = selection[0];
-                if(solutionScore.get(selection[2]) > solutionScore.get(selection[3]))
-                    couple[1] = selection[3];
-                else
-                    couple[1] = selection[2];
 
                 // Croisement des 2 solutions choisis
                 if(rand.nextDouble() <= this.probaCroisement){
@@ -129,6 +119,7 @@ public class Genetique extends ISearchAlgo{
         System.out.println("\nNombre d'itération : " + this.generationCourante);
         System.out.println("La meilleure solution est : " + this.bestSolution.toString());
         System.out.println("L'évaluation est de : " + this.bestEvaluation);
+        System.out.println("Elle est née a la génération : " + this.bestIteration);
 
     }
 
@@ -142,6 +133,7 @@ public class Genetique extends ISearchAlgo{
             if(evaluation < this.bestEvaluation){
                 this.bestSolution = solution;
                 this.bestEvaluation = evaluation;
+                this.bestIteration = this.generationCourante;
 
                 if(evaluation == bestScore){
                     return true;
@@ -153,12 +145,5 @@ public class Genetique extends ISearchAlgo{
         this.totalScoreNext += score.get(solution);
         list.add(solution);
         return false;
-    }
-
-    private void roll(Integer[] random){
-        random[0] = rand.nextInt(this.totalScorePresent);
-        random[1] = rand.nextInt(this.totalScorePresent);
-        random[2] = rand.nextInt(this.totalScorePresent);
-        random[3] = rand.nextInt(this.totalScorePresent);
     }
 }
