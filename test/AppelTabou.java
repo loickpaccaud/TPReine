@@ -1,16 +1,17 @@
-import modele.Solution;
-import modele.SolutionSimple;
-import tabou.Tabou;
+import modele.Modele;
+import modele.ModeleSimple;
+import searchAlgorithm.ISearchAlgo;
+import searchAlgorithm.Tabou;
 
 public class AppelTabou {
 
     public static void main(String[] args){
         int TAILLE_GRILLE = 100;
-        int TAILLE_LISTE_TABOU = 2;
-        int ITERATION_MAX = 75;
+        int TAILLE_LISTE_TABOU = 3;
+        int ITERATION_MAX = 100;
 
-        Solution solutionInitiale = new SolutionSimple(TAILLE_GRILLE);
-        Tabou tabou = new Tabou(solutionInitiale, TAILLE_LISTE_TABOU, ITERATION_MAX);
+        Modele modele  = new ModeleSimple(TAILLE_GRILLE);
+        ISearchAlgo tabou = new Tabou(modele, TAILLE_LISTE_TABOU, ITERATION_MAX);
         tabou.search();
     }
 }

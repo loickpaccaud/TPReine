@@ -40,4 +40,5 @@ public class MouvementSimple extends Mouvement{
         }
         return true;
     }
+
 }

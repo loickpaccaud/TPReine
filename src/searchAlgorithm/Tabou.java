@@ -1,4 +1,4 @@
-package tabou;
+package searchAlgorithm;
 
 import modele.*;
 
@@ -6,25 +6,27 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class Tabou {
+public class Tabou extends ISearchAlgo {
+
+    private Solution bestSolution;
+    private int bestEvaluation;
 
     private int iteMax;
     private int iteCourante;
 
-    private Solution bestSolution;
-    private int bestEvaluation;
     private LinkedList<Mouvement> listTabou;
 
-    public Tabou(Solution solution, int sizeTabou, int iteMax){
+    public Tabou(Modele modele, int sizeTabou, int iteMax){
+        super(modele);
         this.iteMax = iteMax;
         this.iteCourante = 0;
 
-        this.bestSolution = solution;
+        this.bestSolution = this.modele.createSolution();
         this.bestEvaluation = this.bestSolution.evaluer();
         this.listTabou = new LinkedList<>() ;
 
         for(int i = 0; i< sizeTabou ; i++)
-            listTabou.add(this.bestSolution.createMouvement());
+            listTabou.add(this.modele.createMouvement());
     }
 
     private void updateTabou(Mouvement mouvement){
@@ -32,6 +34,7 @@ public class Tabou {
         this.listTabou.addFirst(mouvement);
     }
 
+    @Override
     public void search(){
         HashMap<Solution, Mouvement> voisinage;
 
@@ -42,11 +45,11 @@ public class Tabou {
         int evaluationSuivante;
 
         int evaluationTempo;
-        int evaluation_optimal = solutionCourante.getMeilleurScore();
+        int evaluation_optimal = modele.getBestScore();
 
         do
         {
-            voisinage = solutionCourante.listVoisinsMouvement(this.listTabou);
+            voisinage = solutionCourante.listVoisinsMouvement(this.listTabou, this.modele);
 
             //init solution suivante
             solutionSuivante = null;

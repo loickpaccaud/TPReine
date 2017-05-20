@@ -1,6 +1,5 @@
 package modele;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,19 +16,16 @@ public abstract class Solution{
         return dimensionDamier;
     }
 
-    public abstract int evaluer();
-    public abstract Solution copieOf(Solution objet);
-    public abstract void melanger();
+    // fonction static de création aléatoire
 
-    public abstract ArrayList<Solution> listVoisins();
+    public abstract int evaluer();
+    public abstract Solution createCopy();
+
     public abstract Solution getRandVoisin();
-    public abstract HashMap<Solution, Mouvement> listVoisinsMouvement(List<Mouvement> listTabou);
+    public abstract HashMap<Solution, Mouvement> listVoisinsMouvement(List<Mouvement> listTabou, Modele modele);
 
     @Override
     public abstract String toString();
 
-    public abstract Solution createSolution();
-    public abstract Mouvement createMouvement();
-
-    public abstract int getMeilleurScore();
+    public abstract Solution[] croiser(Solution solution);
 }

@@ -27,6 +27,21 @@ public class SolutionSimple extends Solution{
         }
     }
 
+    public static Solution createRandSolution(int dimensionDamier){
+        SolutionSimple solution = new SolutionSimple(dimensionDamier);
+
+        int temp;
+        int j;
+
+        for(int i=0; i < dimensionDamier; i++){
+            temp = solution.getCaseById(i);
+            j = (int)(Math.random() * dimensionDamier);
+            solution.setCaseById(i, solution.getCaseById(j));
+            solution.setCaseById(j,temp);
+        }
+        return solution;
+    }
+
     private int getCaseById(int n) {
         return damier.get(n);
     }
@@ -35,18 +50,9 @@ public class SolutionSimple extends Solution{
         this.damier.set(n,valeur);
     }
 
-    public Solution createSolution(){
-        return new SolutionSimple(this.dimensionDamier);
-    }
-
     @Override
-    public Solution copieOf(Solution objet){
-        if(objet instanceof SolutionSimple )
-            return new SolutionSimple((SolutionSimple) objet);
-        else{
-            System.exit(-4);
-            return null;
-        }
+    public Solution createCopy(){
+        return new SolutionSimple(this);
     }
 
     @Override
@@ -67,17 +73,6 @@ public class SolutionSimple extends Solution{
         return valeur;
     }
 
-    @Override
-    public void melanger(){
-        int temp;
-        int j;
-        for(int i=0; i < this.dimensionDamier; i++){
-            temp = getCaseById(i);
-            j = (int)(Math.random() * this.dimensionDamier);
-            setCaseById(i,getCaseById(j));
-            setCaseById(j,temp);
-        }
-    }
 
     @Override
     public String toString(){
@@ -85,22 +80,6 @@ public class SolutionSimple extends Solution{
     }
 
     @Override
-    public ArrayList<Solution> listVoisins(){
-        SolutionSimple temp;
-        ArrayList<Solution> listeVoisin = new ArrayList<>();
-
-        for(int i = 0; i< this.dimensionDamier ; i++){
-            for(int j = i+1; j< this.dimensionDamier ; j++){
-                temp = new SolutionSimple(this);
-                int t = temp.getCaseById(j);
-                temp.setCaseById(j, temp.getCaseById(i));
-                temp.setCaseById(i, t);
-                listeVoisin.add(temp);
-            }
-        }
-        return listeVoisin;
-    }
-
     public Solution getRandVoisin(){
         SolutionSimple solution = new SolutionSimple (this);
         int i = (int) (Math.random()* this.dimensionDamier);
@@ -114,19 +93,22 @@ public class SolutionSimple extends Solution{
     }
 
     @Override
-    public HashMap<Solution, Mouvement> listVoisinsMouvement(List<Mouvement> listTabou){
+    public HashMap<Solution, Mouvement> listVoisinsMouvement(List<Mouvement> listTabou, Modele modele){
         HashMap<Solution, Mouvement> listeVoisin = new HashMap<>();
 
         SolutionSimple solutionTempo;
-        MouvementSimple mouvementTempo;
+        Mouvement mouvement;
+        Object[] args;
+
         int caseTempo;
 
         for(int i = 0; i< this.dimensionDamier ; i++){
             for(int j = i+1; j< this.dimensionDamier ; j++){
                 solutionTempo = new SolutionSimple(this);
-                mouvementTempo = new MouvementSimple(i,j);
+                args = new Object[]{i,j};
+                mouvement = modele.createMouvement(args);
 
-                if(mouvementTempo.notInList(listTabou))
+                if(mouvement.notInList(listTabou))
                 {
                     //switch des lignes
                     caseTempo = solutionTempo.getCaseById(j);
@@ -134,18 +116,30 @@ public class SolutionSimple extends Solution{
                     solutionTempo.setCaseById(i, caseTempo);
 
                     // ajout dans la liste
-                    listeVoisin.put(solutionTempo, mouvementTempo);
+                    listeVoisin.put(solutionTempo, mouvement);
                 }
             }
         }
         return listeVoisin;
     }
 
-    public Mouvement createMouvement() {
-        return new MouvementSimple(-1,-1);
-    }
+    @Override
+    public Solution[] croiser(Solution parent) {
+        Solution[] enfant = new Solution[2];
+        SolutionSimple enfant1 = (SolutionSimple) this.createCopy();
+        SolutionSimple enfant2 = (SolutionSimple) parent;
 
-    public int getMeilleurScore(){
-        return 0;
+        Random rand = new Random();
+        int cesure1 = rand.nextInt(this.dimensionDamier-1);
+        int cesure2 = cesure1 + rand.nextInt(this.dimensionDamier - cesure1);
+
+        for(int i = cesure1 ; i < cesure2 ; i++){
+            enfant1.setCaseById(i, enfant2.getCaseById(i));
+            enfant2.setCaseById(i, this.getCaseById(i));
+        }
+        enfant[0] = enfant1;
+        enfant[1] = enfant2;
+
+        return enfant;
     }
 }

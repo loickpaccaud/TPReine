@@ -1,6 +1,7 @@
-import modele.Solution;
-import modele.SolutionSimple;
-import recuit.Recuit;
+import modele.Modele;
+import modele.ModeleSimple;
+import searchAlgorithm.ISearchAlgo;
+import searchAlgorithm.Recuit;
 
 public class AppelRecuit {
 
@@ -10,8 +11,8 @@ public class AppelRecuit {
         double VARIATION_TEMPERATURE = 0.9; //u
         int NOMBRE_SOLUTION_DELTA = 20;
 
-        Solution solutionInitiale = new SolutionSimple(TAILLE_GRILLE);
-        Recuit recuit = new Recuit(solutionInitiale, PROBA_INITIALE, VARIATION_TEMPERATURE, NOMBRE_SOLUTION_DELTA);
+        Modele modele = new ModeleSimple(TAILLE_GRILLE);
+        ISearchAlgo recuit = new Recuit(modele, PROBA_INITIALE, VARIATION_TEMPERATURE, NOMBRE_SOLUTION_DELTA);
         recuit.search();
     }
 }
