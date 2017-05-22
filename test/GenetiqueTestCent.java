@@ -24,7 +24,7 @@ public class GenetiqueTestCent {
         }
 
         System.out.println("Iteration moyenne : " + iteMoyenne/100);
-        System.out.println("Temps moyen : " + (time - System.currentTimeMillis())/100 +"ms");
+        System.out.println("Temps moyen : " + (System.currentTimeMillis() - time)/100 +"ms");
     }
 
 }
