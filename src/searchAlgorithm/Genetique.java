@@ -60,7 +60,7 @@ public class Genetique extends ISearchAlgo{
     }
 
     @Override
-    public void search() {
+    public int search() {
         Integer[] random = new Integer[2];
         Solution[] couple = new Solution[2];
 
@@ -116,11 +116,7 @@ public class Genetique extends ISearchAlgo{
 
             System.out.println("Ite = " + this.generationCourante + " - score total = " + this.totalScorePresent);
         }
-        System.out.println("\nNombre d'itération : " + this.generationCourante);
-        System.out.println("La meilleure solution est : " + this.bestSolution.toString());
-        System.out.println("L'évaluation est de : " + this.bestEvaluation);
-        System.out.println("Elle est née a la génération : " + this.bestIteration);
-
+        return this.generationCourante;
     }
 
     private boolean testBestAndAddList(Solution solution, ArrayList<Solution> list, HashMap<Solution, Integer> score) {
@@ -145,5 +141,15 @@ public class Genetique extends ISearchAlgo{
         this.totalScoreNext += score.get(solution);
         list.add(solution);
         return false;
+    }
+
+    @Override
+    public String toString() {
+        String retour = "-------------- Algorithm Genetique -------------- ";
+        retour += "\nNombre d'itération : " + this.generationCourante;
+        retour += "\nLa meilleure solution est : " + this.bestSolution.toString();
+        retour += "\nNombre d'itération total : " + this.generationCourante;
+        retour +=  "\nL'évaluation est de : " + this.bestIteration;
+        return retour;
     }
 }

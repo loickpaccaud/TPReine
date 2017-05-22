@@ -17,4 +17,8 @@ public abstract class Modele {
     public abstract Solution[] croiserSolution(Solution parent1, Solution parent2);
 
     public abstract int getWorstScore();
+
+    public int getDimensionDamier() {
+        return dimensionDamier;
+    }
 }

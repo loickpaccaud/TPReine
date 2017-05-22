@@ -17,6 +17,7 @@ public class AppelGenetique{
         Modele modele = new ModeleSimple(TAILLE_GRILLE);
         ISearchAlgo genetique = new Genetique(modele, TAILLE_GENERATION, PROBA_MUTATION, PROBA_CROISSEMENT, GENERATION_MAX);
         genetique.search();
+        System.out.println(genetique);
     }
 
 }

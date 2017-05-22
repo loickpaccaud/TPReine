@@ -7,12 +7,12 @@ public class AppelRecuit {
 
     public static void main(String[] args){
         int TAILLE_GRILLE = 50;
-        double PROBA_INITIALE = 0.8; //p0
-        double VARIATION_TEMPERATURE = 0.9; //u
-        int NOMBRE_SOLUTION_DELTA = 20;
+        double PROBA_INITIALE = 0.8;
+        double VARIATION_TEMPERATURE = 0.9;
 
         Modele modele = new ModeleSimple(TAILLE_GRILLE);
-        ISearchAlgo recuit = new Recuit(modele, PROBA_INITIALE, VARIATION_TEMPERATURE, NOMBRE_SOLUTION_DELTA);
+        ISearchAlgo recuit = new Recuit(modele, PROBA_INITIALE, VARIATION_TEMPERATURE);
         recuit.search();
+        System.out.println(recuit);
     }
 }

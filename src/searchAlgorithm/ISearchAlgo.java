@@ -2,9 +2,6 @@ package searchAlgorithm;
 
 import modele.Modele;
 
-/**
- * Created by MrPingouin on 18/05/2017.
- */
 public abstract class ISearchAlgo{
 
     protected Modele modele;
@@ -13,6 +10,8 @@ public abstract class ISearchAlgo{
         this.modele = modele;
     }
 
-    public abstract void search();
+    public abstract int search();
 
+    @Override
+    public abstract String toString();
 }

@@ -30,12 +30,13 @@ public class Tabou extends ISearchAlgo {
     }
 
     private void updateTabou(Mouvement mouvement){
-        this.listTabou.pollLast();
-        this.listTabou.addFirst(mouvement);
+        System.out.println("update_mouvement");
+        if(this.listTabou.pollLast() != null)
+            this.listTabou.addFirst(mouvement);
     }
 
     @Override
-    public void search(){
+    public int search(){
         HashMap<Solution, Mouvement> voisinage;
 
         Solution solutionCourante = this.bestSolution;
@@ -84,9 +85,15 @@ public class Tabou extends ISearchAlgo {
         }
         while ((iteCourante < iteMax) && (voisinage.size() > 0));
 
-        System.out.println("-------------- Algorithm Tabou -------------- ");
-        System.out.println("Nombre d'itération : " + this.iteCourante);
-        System.out.println("La meilleure solution est : " + this.bestSolution.toString());
-        System.out.println("L'évaluation est de : " + this.bestEvaluation);
+        return iteCourante;
+    }
+
+    @Override
+    public String toString() {
+        String retour = "-------------- Algorithm Tabou -------------- ";
+        retour += "\nNombre d'itération : " + this.iteCourante;
+        retour += "\nLa meilleure solution est : " + this.bestSolution.toString();
+        retour +=  "\nL'évaluation est de : " + this.bestEvaluation;
+        return retour;
     }
 }
