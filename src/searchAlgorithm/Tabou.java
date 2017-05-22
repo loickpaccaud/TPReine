@@ -9,7 +9,6 @@ import java.util.Map;
 public class Tabou extends ISearchAlgo {
 
     private Solution bestSolution;
-    private int bestEvaluation;
 
     private int iteMax;
     private int iteCourante;
@@ -21,7 +20,7 @@ public class Tabou extends ISearchAlgo {
         this.iteMax = iteMax;
         this.iteCourante = 0;
 
-        this.bestSolution = this.modele.createSolution();
+        this.bestSolution = this.modele.createRandSolution();
         this.bestEvaluation = this.bestSolution.evaluer();
         this.listTabou = new LinkedList<>() ;
 
@@ -30,7 +29,6 @@ public class Tabou extends ISearchAlgo {
     }
 
     private void updateTabou(Mouvement mouvement){
-        System.out.println("update_mouvement");
         if(this.listTabou.pollLast() != null)
             this.listTabou.addFirst(mouvement);
     }

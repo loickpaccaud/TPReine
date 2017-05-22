@@ -7,8 +7,8 @@ public class AppelRecuit {
 
     public static void main(String[] args){
         int TAILLE_GRILLE = 50;
-        double PROBA_INITIALE = 0.8;
-        double VARIATION_TEMPERATURE = 0.9;
+        double PROBA_INITIALE = 0.1;
+        double VARIATION_TEMPERATURE = 0.1;
 
         Modele modele = new ModeleSimple(TAILLE_GRILLE);
         ISearchAlgo recuit = new Recuit(modele, PROBA_INITIALE, VARIATION_TEMPERATURE);

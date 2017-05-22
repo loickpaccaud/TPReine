@@ -10,7 +10,6 @@ import java.util.Random;
 public class Genetique extends ISearchAlgo{
 
     private Solution bestSolution;
-    private int bestEvaluation;
     private int bestIteration;
     private boolean bestFinded;
     private int bestScore;

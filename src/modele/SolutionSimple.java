@@ -118,9 +118,6 @@ public class SolutionSimple extends Solution{
                     // ajout dans la liste
                     listeVoisin.put(solutionTempo, mouvement);
                 }
-                else{
-                    System.out.println("Mouvement interdit");
-                }
             }
         }
         return listeVoisin;

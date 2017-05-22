@@ -5,7 +5,6 @@ import modele.*;
 public class Recuit extends ISearchAlgo{
 
     private Solution xmin;
-    private int fmin;
 
     private int n1;
     private int n2;
@@ -17,16 +16,16 @@ public class Recuit extends ISearchAlgo{
     public Recuit(Modele modele, double probaInitiale, double variationTemperature) {
         super(modele);
 
-        xmin = this.modele.createSolution();
-        fmin = xmin.evaluer();
+        xmin = this.modele.createRandSolution();
+        bestEvaluation = xmin.evaluer();
 
         this.variationTemperature = variationTemperature;
         this.delta = 2*modele.getDimensionDamier()/3;
         this.temperature = -(delta/Math.log(probaInitiale));
 
 
-        this.n1 = 2*modele.getDimensionDamier()*2;
-        this.n2 = 4*n1;
+        this.n1 = 2*modele.getDimensionDamier();
+        this.n2 = n1*4;
     }
 
     @Override
@@ -34,7 +33,7 @@ public class Recuit extends ISearchAlgo{
         Solution x = xmin;
         Solution y;
 
-        int evaluationX = fmin;
+        int evaluationX = bestEvaluation;
         int evaluationY;
 
         int evaluation_optimal = modele.getBestScore();
@@ -49,8 +48,8 @@ public class Recuit extends ISearchAlgo{
                 if(delta <= 0){
                     x = y;
                     evaluationX=evaluationY;
-                    if(evaluationX <fmin) {
-                        fmin = evaluationX;
+                    if(evaluationX < bestEvaluation) {
+                        bestEvaluation = evaluationX;
                         xmin = x;
                     }
                 }else if(Math.random() <= Math.exp((-delta)/temperature)){
@@ -58,7 +57,7 @@ public class Recuit extends ISearchAlgo{
                     evaluationX=evaluationY;
                 }
 
-                if(fmin == evaluation_optimal) {
+                if(bestEvaluation == evaluation_optimal) {
                     return k+1;
                 }
 
@@ -87,7 +86,7 @@ public class Recuit extends ISearchAlgo{
         retour += "\nNb d'itération n1 : "+Integer.toString(n1);
         retour += "\nNb d'itération n1 * n2 : "+Integer.toString(n1 * n2);
         retour += "\nLa meilleure solution est : " + this.xmin.toString();
-        retour = "\nL'évaluation est de : " + this.fmin;
+        retour = "\nL'évaluation est de : " + this.bestEvaluation;
         return retour;
     }
 }
